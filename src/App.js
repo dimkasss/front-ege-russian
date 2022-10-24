@@ -2,17 +2,6 @@ import './App.css';
 import './Button'
 import Button from './Button';
 import React, { useEffect, useState } from 'react';
-import { editableInputTypes } from '@testing-library/user-event/dist/utils';
-
-const initialState = {
-    word1: "",
-    word2: "",
-    key: 0,
-    answered: false,
-    correct: false,
-    clicked: 0
-  }
-
 
 const App = () => {
 	const [words, setWords] = useState({
@@ -28,9 +17,6 @@ const App = () => {
 		task();
 	}, [])
 
-	useEffect(() => {
-
-	}, [answered])
 	
   	const task = () => {
 		setWords({word1: "", word2: ""})
