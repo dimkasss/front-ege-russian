@@ -1,7 +1,8 @@
 import './App.css';
-import './Button'
 import Button from './Button';
 import React, { useEffect, useState } from 'react';
+import CSS from 'csstype';
+import handleWords from './backend/words';
 
 const App = () => {
 	const [words, setWords] = useState({
@@ -15,37 +16,29 @@ const App = () => {
 
 	useEffect(() => {
 		task();
+		document.title = 'Трёхбалльный - ЕГЭ'
 	}, [])
 
 	
-  	const task = () => {
+  	const task = (): void => {
 		setWords({word1: "", word2: ""})
 		setKey(0);
 		setAnswered(false);
 		setCorrect(false);
 		setClicked(0);
-  		let requestOptions = {
-			method: 'GET',
-			redirect: 'follow'
-  		};
 		
-  		fetch("http://localhost:3000/words", requestOptions)
-  	    .then(response => response.json())
-  	    .then(data => {
-  	    	setWords({
-				word1: data.words[0],
-				word2: data.words[1],
-			})
-			setKey(data.whichOne)
-
-  	    })
-  	    .catch(error => console.log('error', error));
+  		const data = handleWords()
+  	    setWords({
+			word1: data.words[0],
+			word2: data.words[1],
+		})
+		setKey(data.whichOne)
   	}
 
-  	const pick = (n) => {
+  	const pick = (n: 0 | 1) => {
   		setAnswered(true);
 		setClicked(n);
-  		if(key == n){
+  		if(key === n){
   			setCorrect(true)
   		}
   		else {
@@ -53,11 +46,11 @@ const App = () => {
   		}
   	}
 
-  	const answeredOpacity = {
+  	const answeredOpacity: CSS.Properties = {
   	  opacity: answered ? 1 : 0,
   	  pointerEvents: answered ? 'all' : 'none'
   	}
-  	const answeredOptions = {
+  	const answeredOptions: CSS.Properties = {
   	  pointerEvents: answered ? 'none' : 'all'
   	}
 

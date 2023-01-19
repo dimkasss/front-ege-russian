@@ -1,6 +1,13 @@
+import React from 'react';
 import './Button.css';
 
-function Button({value, color="purple", onClick}) {
+interface IButton {
+  value: string;
+  color: string;
+  onClick: () => void;
+}
+
+function Button({value, color="purple", onClick}: IButton) {
   const jsxStyle = {
     background: 'var(--' + color + ')'
   }
